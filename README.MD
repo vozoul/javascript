@@ -35,6 +35,8 @@ Décommenter la ligne puis recharger la page.
 
 Que se passe-t-il et pourquoi ?
 
+il affiche un message d'erreur signifiant que la variable n'a pas ete defini
+
 # Exo-1 - Les variables
 
 La température aujourd'hui est de 294 Kelvin.

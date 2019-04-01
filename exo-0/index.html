@@ -11,55 +11,59 @@
 
         /* Section 1 */   
 
-        var name = "Joe"; //je declare la variable name et je lui assigne la valeur joe
-        var city = 'London';
-        var age = 32;
-        var isRed = true;
-        var isOld = age > 80;
+        var name = "Joe"; //je declare une variable name avec la valeur joe
+        var city = 'London'; //je declare une variable city avec la valeur London
+        var age = 32; // je declare une variable age avec la valeur 32
+        var isRed = true; // je declare une variable isRed avec la valeur true
+        var isOld = age > 80; // je declare une variable isOld qui renvoie le booléen true si age est supperieur a 80
 
-        var previousJobs = ['lawyer', 'developper', 'Professionnal climber'];
+        var previousJobs = ['lawyer', 'developper', 'Professionnal climber']; // je declare un tableau de variable avec 3 valeurs
 
         function info(height, weight) { //je créé la fonction info qui prend en parametre la taille et le poids
-            if (height > 180) {
-                console.log('Vous êtes grand');
+            if (height > 180) { // si la taille est supperieure a 180
+                console.log('Vous êtes grand'); // il affiche dans la console Vous etes grand
             }
-            if (weight < 0) {
-                console.log('oups, there is a problem');
-            } else if ( weight < 15) {
-                console.log('Are you that slim ?')
-            } else {
-                console.log('Good !')
-            }
-        }
+            if (weight < 0) { // si le poids est inferieur a 0
+                console.log('oups, there is a problem'); //on ecrit dans la console oups, there is a problem
+            } else if ( weight < 15) { // sinon si c'est inférieur a 15
+                console.log('Are you that slim ?') // on ecrit Are you that slim ?
+            } else { // dans tout les autre cas
+                console.log('Good !') // on ecrit Good !
+            } // fin if else if else
+        } //fin fonction
 
-        info(165, 45);
+        info(165, 45); // j'appel ma fonction info en lui passant les attributs 165 & 45
 
-        var myHeight = 175;
-        var myWeight = 86;
+        var myHeight = 175; // je declare une variable myHeight avec la valuer 175
+        var myWeight = 86; // je declare une variable myWeight avec la valuer 86
 
-        info(myHeight, myWeight);
+        info(myHeight, myWeight); // j'appel la fonction info en passant en parametre mes variables précédement créées
 
-        info(myHeight + 15, myWeight - 100);
+        info(myHeight + 15, myWeight - 100); // j'appel la fonction info en passant en parametre mes variables précédement créées auxquelles j'additionne 15 pour myHeight et je soustrait 100 a myWeight
 
-        function toUpper(variable) {
-            return variable.toUpperCase();
-        }
+        function toUpper(variable) { // je declare une fonction toUpper qui prend en parametre une variable variable
+            return variable.toUpperCase(); // je retourne comme resultat ma varialble en majuscule grace a la fonction toUpperCase()
+        } // fin fonction toUpper
 
-        var upperName = toUpper(name);
+        var upperName = toUpper(name); // je declare une variable upperName qui aura pour valeur majuscule du nom passer en parametre de ma fonction toUpper
 
-        for (i = 0; i < 3; i = i + 1) {
-            console.log(previousJobs[i]);
+        for (i = 0; i < 3; i = i + 1) { // j'initialise une boucle qui ce repete 3 fois
+            console.log(previousJobs[i]); // affiche dans  la console la valuer du tableau de variable a la position correspondant au numero de l'itération
         }
 
         /* Section 2: */
 
-        // afficher la ville dans laquele Joe vit.     
+        // afficher la ville dans laquele Joe vit.
+
+            console.log('joe live in :' + city);
 
         // afficher si Joe est roux ou pas.
 
+            console.log('joe is red hair : ' + isRed);
+
         /* Section 3 */
 
-        // console.log(myVariable);
+         console.log(myVariable);
 
         </script>
 
