@@ -15,9 +15,7 @@ function toProgram(){
 
 function modify(input, output){
     secretMessage.forEach(function(item, index, array){
-       if(item === input){
-           return secretMessage[index] = output;
-       }
+       if(item === input){ return secretMessage[index] = output;}
     });
 }
 
@@ -39,6 +37,11 @@ function uKnow(){
             }
         }
     });
+
+/*
+    var pos = secretMessage.indexOf('get');
+    secretMessage.splice(pos, 5, 'know');
+*/
 }
 
 function launch(){
@@ -48,7 +51,7 @@ function launch(){
     delFirst();
     addProg('Programming');
     uKnow();
-    console.log(secretMessage.join(' '));
+    window.alert(secretMessage.join(' '));
 }
 
 launch();
