@@ -2,7 +2,7 @@
 console.log('exo-2');
 
 var age = prompt('Indiquez votre age');
-var inscrit = prompt('Etes vous inscrit ?( o/n/np (ne participe pas) )');
+var inscrit = prompt('Etes vous inscrit ?( o/n/i (Inscription) )');
 
 function isInscrit () {
     if(inscrit === 'o'){
