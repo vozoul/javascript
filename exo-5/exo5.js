@@ -16,9 +16,9 @@ function chante(){
     //     }
     // }
 
-    inputArray.forEach(function(item){
-        if(voyels.indexOf(item) != -1){
-            resArray.push(item);
+    inputArray.forEach(function(letter){
+        if(voyels.indexOf(letter) != -1){
+            resArray.push(letter);
         }
     });
     window.alert(resArray.join('').toUpperCase());
