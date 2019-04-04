@@ -68,4 +68,16 @@ function filtering(resultat){
     console.log(resultat);
 }
 
+function addProduct(){
+    jsonDatas.push({
+            name: document.getElementById('newName').value,
+            type: document.getElementById('newType').value,
+            description: document.getElementById('newDesc').value,
+            price: document.getElementById('newPrice').value,
+            quantity: document.getElementById('newQty').value,
+        },
+    );
+    console.log(jsonDatas);
+}
+
 trad(jsonDatas);

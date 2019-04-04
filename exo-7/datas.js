@@ -53,7 +53,7 @@ var jsonDatas=[
 		"description" : "",
 		"price" : 30,
 		"quantity" : 200
-	}
+	},
 ];
 
 

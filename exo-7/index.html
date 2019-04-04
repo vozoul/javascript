@@ -10,7 +10,7 @@
 
 			<form>
 				<input type="search" name="search" id="search">
-				<label>Affiche les article en rupture : <input type="checkbox" id="checked"></label>
+				<label>Affiche les article en rupture : <input type="checkbox" id="checked" onchange="trouve()"></label>
 				<label for="filter">filtrez la liste par :</label>
 				<select id="filter" onchange="trouve()">
 					<option value="0"> --- </option>
@@ -27,6 +27,32 @@
 
 			</ul>
 		</div>
+		<fieldset>
+			<legend>Ajouter un article : </legend>
+		<form id="addProduct">
+			<p>
+				<label for="newName">Nom</label>
+				<input type="text" id="newName" name="name">
+			</p>
+			<p>
+				<label for="newType">Type</label>
+				<input type="text" id="newType" name="type">
+			</p>
+			<p>
+				<label for="newDesc">Description</label>
+				<input type="text" id="newDesc" name="description">
+			</p>
+			<p>
+				<label for="newPrice">Prix</label>
+				<input type="text" id="newPrice" name="price">
+			</p>
+			<p>
+				<label for="newQty">Quantité</label>
+				<input type="text" id="newQty" name="quantity">
+			</p>
+			<button type="button" value="addProd" onclick="addProduct()">ajouter un article</button>
+		</form>
+		</fieldset>
 
 		<script src="exo7.js"></script>
 	</body>
