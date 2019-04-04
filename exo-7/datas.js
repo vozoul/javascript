@@ -54,4 +54,13 @@ var jsonDatas=[
 		"price" : 30,
 		"quantity" : 200
 	}
-]
+];
+
+
+var typeValue = {
+	car: "voiture",
+	house: "maison",
+	game: "jeu",
+	videoGame: "jeu video",
+	show: "spectacle",
+};

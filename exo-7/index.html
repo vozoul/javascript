@@ -3,18 +3,31 @@
     <head>
         <meta charset="utf-8">
 		<script src="datas.js"></script>
-		<script src="exo7.js"></script>
 	</head>
     <body>
 		<div class="container">
 			<h1>Exercice 7</h1>
 
-			<form action="" method="post">
-				<input type="text" name="search" id="search">
-				<input type="button" value="Rechercher" id="searchLaunch">
+			<form>
+				<input type="search" name="search" id="search">
+				<label>Affiche les article en rupture : <input type="checkbox" id="checked"></label>
+				<label for="filter">filtrez la liste par :</label>
+				<select id="filter" onchange="trouve()">
+					<option value="0"> --- </option>
+					<option value="1">ordre alphabétique</option>
+					<option value="2">ordre anti-alphabetique</option>
+					<option value="3">prix croissant</option>
+					<option value="4">prix décroissant</option>
+				</select>
+				<button type="button" value="Rechercher" id="searchLaunch" onClick="trouve()"> cherche </button>
 			</form>
+		</div>
+		<div id="resolution">
+			<ul id="liste">
 
+			</ul>
 		</div>
 
+		<script src="exo7.js"></script>
 	</body>
 </html>
