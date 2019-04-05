@@ -15,9 +15,17 @@ function translate(key) {
     }
 }
 
+function ucFirst(str){
+    if(str.length > 0){
+        return str[0].toUpperCase() + str.substring(1);
+    }else{
+        return str;
+    }
+}
+
 function trouve() {
-    var resultat = [];
     console.clear();
+    var resultat = [];
     var checked = document.getElementById('checked').checked;
     var recherche = document.getElementById('search').value;
     jsonDatas.forEach(function (keys) {
@@ -26,22 +34,22 @@ function trouve() {
             keys.items.forEach(function(item){
                 if (!checked && item.quantity > 0) {
                     resultat.push(item);
-                    document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
+                    //document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
 
                 } else if (checked && item.quantity >= 0) {
                     resultat.push(item);
-                    document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
+                    //document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
                 }
             });
         }
     });
-    console.log("resultat " + resultat);
-    filtering(resultat);
+    //console.log("resultat " + resultat);
+    filtering(resultat, recherche);
 }
 
 
-function filtering(resultat) {
-    document.getElementById('liste').innerHTML = "";
+function filtering(resultat, recherche) {
+    document.getElementsByTagName('tbody').innerHTML = "";
     var select = document.getElementById('filter').value;
     console.log(select);
     if (select === '1') {
@@ -61,10 +69,39 @@ function filtering(resultat) {
             return (b.price) - (a.price);
         });
     }
-    resultat.forEach(function (item) {
-        document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
-    })
-    console.log(resultat);
+    var search = recherche;
+    showResult(resultat, search);
+}
+
+function showResult(resultat, search){
+    var tableBody = document.getElementsByTagName("tbody");
+    var line = tableBody[0];
+    line.innerHTML = "";
+
+    resultat.forEach(function(item){
+        var tdType = document.createElement("td");
+        var txtType = document.createTextNode(search);
+        tdType.appendChild(txtType);
+        var tr = document.createElement('tr');
+
+        for(var key in item){
+            if(key != 'contact'){
+                var name = document.createElement('td');
+                var text = document.createTextNode(item[key]);
+                name.appendChild(text);
+                tr.appendChild(name);
+            }
+        }
+        tr.appendChild(tdType);
+        for(var info in item.contact){
+            var name = document.createElement('td');
+            var text = document.createTextNode(item.contact[info]);
+            name.appendChild(text);
+            tr.appendChild(name);
+        }
+
+        line.appendChild(tr);
+    });
 }
 
 function addProduct() {
