@@ -18,21 +18,21 @@ function translate(key) {
 function trouve() {
     var resultat = [];
     console.clear();
-    document.getElementById('liste').innerHTML = '';
     var checked = document.getElementById('checked').checked;
     var recherche = document.getElementById('search').value;
-    jsonDatas.forEach(function (item) {
-        if (item.type === recherche || item.type === translate(recherche)) {
-            if (!checked && item.quantity > 0) {
-                console.log(item);
-                resultat.push(item);
-                document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
+    jsonDatas.forEach(function (keys) {
+        if (keys.type === recherche || keys.type === translate(recherche)) {
+            document.getElementById('liste').innerHTML += "<h3>" + recherche + "</h3>";
+            keys.items.forEach(function(item){
+                if (!checked && item.quantity > 0) {
+                    resultat.push(item);
+                    document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
 
-            } else if (checked) {
-                console.log(item);
-                resultat.push(item);
-                document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
-            }
+                } else if (checked && item.quantity >= 0) {
+                    resultat.push(item);
+                    document.getElementById('liste').innerHTML += "<li>" + item.name + "</li>";
+                }
+            });
         }
     });
     console.log("resultat " + resultat);
@@ -77,6 +77,17 @@ function addProduct() {
         },
     );
     console.log(jsonDatas);
+}
+
+function showContact(){
+    jsonDatas.forEach(function(item) {
+        document.getElementById('liste').innerHTML += "<h3>" + item.type + "</h3>";
+        console.log(item.type);
+        item.items.forEach(function(index){
+            document.getElementById('liste').innerHTML += "<li>" + index.contact.lastName + ", " + index.contact.firstName + ", " + index.contact.address + "</li>";
+            console.log(index.contact);
+        });
+    });
 }
 
 trad(jsonDatas);
