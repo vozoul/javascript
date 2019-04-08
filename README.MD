@@ -267,7 +267,7 @@ Voici quelques idées afin de mettre en pratique ce que vous avez appris dans un
 
 Faire les exercices en console c'est bien, mais il est plus intéressant d'utiliser la page web fournie.
 Le but final sera d'adapter l'exercice 7 en affichant les objets dans la table fournie au lieu de la console.
-Pour cela reprenez votre datas.js issu de 10. Nous allons utiliser la page html fournie.
+Pour cela reprenez votre datas_old.js issu de 10. Nous allons utiliser la page html fournie.
 
 Nous proposons l'utilisation de bootstrap 4.3 (https://getbootstrap.com/docs/4.3/getting-started/introduction/)
 Ce n'est pas obligatoire mais c'est un peu plus joli.

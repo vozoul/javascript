@@ -22,7 +22,7 @@ function trouve() {
     var recherche = document.getElementById('search').value;
     jsonDatas.forEach(function (keys) {
         if (keys.type === recherche || keys.type === translate(recherche)) {
-            document.getElementById('liste').innerHTML += "<h3>" + recherche + "</h3>";
+            //document.getElementById('liste').innerHTML += "<h3>" + recherche + "</h3>";
             keys.items.forEach(function(item){
                 if (!checked && item.quantity > 0) {
                     resultat.push(item);

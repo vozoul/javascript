@@ -51,7 +51,7 @@ function trouve() {
 function filtering(resultat, recherche) {
     document.getElementsByTagName('tbody').innerHTML = "";
     var select = document.getElementById('filter').value;
-    console.log(select);
+    //console.log(select);
     if (select === '1') {
         resultat.sort(function (a, b) {
             return (a.name).localeCompare(b.name);
@@ -74,33 +74,47 @@ function filtering(resultat, recherche) {
 }
 
 function showResult(resultat, search){
-    var tableBody = document.getElementsByTagName("tbody");
-    var line = tableBody[0];
-    line.innerHTML = "";
+    // var tableBody = document.getElementsByTagName("tbody");
+    // var line = tableBody[0];
+    //line.innerHTML = "";
+    //
+    // resultat.forEach(function(item){
+    //     var tdType = document.createElement("td");
+    //     var txtType = document.createTextNode(search);
+    //     tdType.appendChild(txtType);
+    //     var tr = document.createElement('tr');
+    //
+    //     for(var key in item){
+    //         if(key != 'contact'){
+    //             var name = document.createElement('td');
+    //             var text = document.createTextNode(item[key]);
+    //             name.appendChild(text);
+    //             tr.appendChild(name);
+    //         }
+    //     }
+    //     tr.appendChild(tdType);
+    //     for(var info in item.contact){
+    //         var name = document.createElement('td');
+    //         var text = document.createTextNode(item.contact[info]);
+    //         name.appendChild(text);
+    //         tr.appendChild(name);
+    //     }
+    //
+    //     line.appendChild(tr);
+    //});
 
     resultat.forEach(function(item){
-        var tdType = document.createElement("td");
-        var txtType = document.createTextNode(search);
-        tdType.appendChild(txtType);
-        var tr = document.createElement('tr');
+        $(".tbody").append("<tr>" +
 
         for(var key in item){
-            if(key != 'contact'){
-                var name = document.createElement('td');
-                var text = document.createTextNode(item[key]);
-                name.appendChild(text);
-                tr.appendChild(name);
+            if(key != "contact"){
+                $(".item").append("<td>" + item[key] + "</td>");
             }
         }
-        tr.appendChild(tdType);
+        $(".item").append("<td>" + search + "</td>");
         for(var info in item.contact){
-            var name = document.createElement('td');
-            var text = document.createTextNode(item.contact[info]);
-            name.appendChild(text);
-            tr.appendChild(name);
+            $(".item").append("<td>" + item.contact[info] + "</td>");
         }
-
-        line.appendChild(tr);
     });
 }
 

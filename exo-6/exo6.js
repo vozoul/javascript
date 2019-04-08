@@ -49,7 +49,7 @@ var team = {
     ],
 };
 
-function addPlayer(firstName, lastName, age){
+function addPlayer(firstName, lastName, age) {
     team._players.push({
         firstName: firstName,
         lastName: lastName,
@@ -57,7 +57,7 @@ function addPlayer(firstName, lastName, age){
     },);
 }
 
-function addGame(opponent, teamPoints, opponentsPoints){
+function addGame(opponent, teamPoints, opponentsPoints) {
     team._games.push({
         opponent: opponent,
         teamPoints: teamPoints,
@@ -75,32 +75,32 @@ addGame('holly-spip', 47, 63);
 addGame('gwendal', 24, 23);
 addGame('aragorn', 52, 27);
 
-function sumDot(average){
-    if(average === true){
-        var dotTeam = team._games.reduce(function(accu, add){
+function sumDot(average) {
+    if (average === true) {
+        var dotTeam = team._games.reduce(function (accu, add) {
             return (accu + add.opponentPoints);
         }, 0);
         return dotTeam / team._games.length;
-    }else{
-        var dotTeam = team._games.reduce(function(accu, add){
-               return accu + add.teamPoints;
+    } else {
+        var dotTeam = team._games.reduce(function (accu, add) {
+            return accu + add.teamPoints;
         }, 0);
         return dotTeam;
     }
 }
 
 function teamSorted(byAge) {
-    if(byAge === true){
-        var sortedPlayers = team._players.sort(function (a, b){
+    if (byAge === true) {
+        var sortedPlayers = team._players.sort(function (a, b) {
             return a.age - b.age;
         });
         return sortedPlayers[sortedPlayers.length - 1];
-    }else if (byAge === false) {
+    } else if (byAge === false) {
         var sortedPlayers = team._players.sort(function (a, b) {
             return (a.firstName).localeCompare(b.firstName);
         });
         return sortedPlayers;
-    }else{
+    } else {
         var sortedPlayers = team._players.sort(function (a, b) {
             return (a.lastName).localeCompare(b.lastName);
         });
