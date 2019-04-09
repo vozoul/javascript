@@ -22,19 +22,12 @@ $(document).ready(function(){
     var $icone = $('a:contains("Cart") span')[0];
 
     $('img').on('click', function(){
-
+        var $nbrProd = parseInt($(this).closest('.panel').children('.panel-footer').text().replace(/[^\d]/g, ""));
         var $valCart = parseInt($('a:contains("Cart")').text().replace(/[^\d]/g, ""));
-        var $valeur = parseInt($(this).closest('.panel').children('.panel-footer').text().replace(/[^\d]/g, ""));
-        if($valCart > 0){
-            var $nbrCart = $valeur + $valCart;
-        }else{
-            var $nbrCart = $valeur;
-        }
-        console.log($nbrCart);
-
-        $('a:contains("Cart")').text(' Cart ' + $nbrCart);
+        var $totCart = ($valCart > 0) ?  $nbrProd + $valCart : $nbrProd;
+        $('a:contains("Cart")').text(' Cart ' + $totCart);
         $('a:contains("Cart")').prepend($icone);
-    })
+    });
 
     // $('a, img, h1, input, button').on('mouseover', function(event){
     $('.panel').on('mouseover', function(){
