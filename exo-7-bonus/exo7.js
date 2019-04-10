@@ -74,48 +74,48 @@ function filtering(resultat, recherche) {
 }
 
 function showResult(resultat, search){
-    // var tableBody = document.getElementsByTagName("tbody");
-    // var line = tableBody[0];
-    //line.innerHTML = "";
-    //
-    // resultat.forEach(function(item){
-    //     var tdType = document.createElement("td");
-    //     var txtType = document.createTextNode(search);
-    //     tdType.appendChild(txtType);
-    //     var tr = document.createElement('tr');
-    //
-    //     for(var key in item){
-    //         if(key != 'contact'){
-    //             var name = document.createElement('td');
-    //             var text = document.createTextNode(item[key]);
-    //             name.appendChild(text);
-    //             tr.appendChild(name);
-    //         }
-    //     }
-    //     tr.appendChild(tdType);
-    //     for(var info in item.contact){
-    //         var name = document.createElement('td');
-    //         var text = document.createTextNode(item.contact[info]);
-    //         name.appendChild(text);
-    //         tr.appendChild(name);
-    //     }
-    //
-    //     line.appendChild(tr);
-    //});
+    var tableBody = document.getElementsByTagName("tbody");
+    var line = tableBody[0];
+    line.innerHTML = "";
 
     resultat.forEach(function(item){
-        //$(".tbody").append("<tr>" +
+        var tdType = document.createElement("td");
+        var txtType = document.createTextNode(search);
+        tdType.appendChild(txtType);
+        var tr = document.createElement('tr');
 
         for(var key in item){
-            if(key != "contact"){
-                $(".item").append("<td>" + item[key] + "</td>");
+            if(key != 'contact'){
+                var name = document.createElement('td');
+                var text = document.createTextNode(item[key]);
+                name.appendChild(text);
+                tr.appendChild(name);
             }
         }
-        $(".item").append("<td>" + search + "</td>");
+        tr.appendChild(tdType);
         for(var info in item.contact){
-            $(".item").append("<td>" + item.contact[info] + "</td>");
+            var name = document.createElement('td');
+            var text = document.createTextNode(item.contact[info]);
+            name.appendChild(text);
+            tr.appendChild(name);
         }
+
+        line.appendChild(tr);
     });
+    //
+    // resultat.forEach(function(item){
+    //     $(".tbody").append("<tr class='item'>" +
+    //
+    //     for(var key in item){
+    //         if(key != "contact"){
+    //             $(".item").append("<td>" + item[key] + "</td>");
+    //         }
+    //     }
+    //     $(".item").append("<td>" + search + "</td>");
+    //     for(var info in item.contact){
+    //         $(".item").append("<td>" + item.contact[info] + "</td>");
+    //     }
+    // });
 }
 
 function addProduct() {
