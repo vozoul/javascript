@@ -4,6 +4,9 @@ function getData() {
     return data; // data is defined in DATA.js file
 }
 
+var $trItem = [];
+var $lastSortBy = '';
+
 $(document).ready(function () {
 
     //je visionne la BDD
@@ -14,60 +17,18 @@ $(document).ready(function () {
         });
     });
 
+    //lancement du tri
+    $('tr a.sort').on('click', function(){
+        var $sortBy = $(this).data('sort');
+        sorting($sortBy);
+    })
+
     //je recherche dans la BDD
     $('#search').on('click', function () {
         seek();
     })
 
-    $(document).on('keydown', function (key) {
-        if (key.keyCode == 13) { // KeyCode de la touche entrée
-            window.alert('Hey ! Tu as appuyé sur la touche entrée !!');
-        }
-    })
-
-    //fonction d'ajout de ligne
-    function addLine(item) {
-        var $tableItem = [];
-        var $tr = $('<tr>');
-        for (var key in item) {
-            if (key === 'name') {
-                for (var subKey in item.name) {
-                    $tr.append('<td>' + item.name[subKey] + '</td>');
-                }
-            } else {
-                $tr.append('<td>' + item[key] + '</td>');
-            }
-        }
-        $tableItem.push(item);
-        if ($tableItem.indexOf(item) != -1) {
-            $('tbody').append($tr);
-        }
-    }
-
-    //fonction de recherche
-    function seek() {
-        $('tbody').html('');
-        var seeking = $('#searchInput').val();
-        var regex = new RegExp('(^' + seeking + ')+(.*)+', 'gi')
-        $(getData()).each(function (index, item) {
-            for (var key in item) {
-                $value1 = item[key];
-                if (regex.test($value1) === true) {
-                    addLine(item);
-                }
-                if (key === 'name') {
-                    for (var subKey in item.name) {
-                        $value2 = item.name[subKey];
-                        if (regex.test($value2) === true) {
-                            addLine(item);
-                        }
-                    }
-                }
-            }
-        })
-    }
-
-
+    //Pagination
     $('.maxRows').on('click', function () {
         $('.pagination').html('');
         var maxRows = parseInt($(this).data('value'));
@@ -106,3 +67,81 @@ $(document).ready(function () {
 
 });
 
+
+//fonction d'ajout de ligne
+function addLine(item) {
+    var $tableItem = [];
+    var $tr = $('<tr>');
+    for (var key in item) {
+        if (key === 'name') {
+            for (var subKey in item.name) {
+                $tr.append('<td class="'+ subKey +'">' + item.name[subKey] + '</td>');
+            }
+        } else {
+            $tr.append('<td class="'+key+'">' + item[key] + '</td>');
+        }
+    }
+    $tableItem.push(item);
+    if ($tableItem.indexOf(item) != -1) {
+        $trItem.push(item);
+        $('tbody').append($tr);
+    }
+}
+
+//Fonction de recherche
+function seek() {
+    $('tbody').html('');
+    var $seekTable = $trItem;
+    $trItem =[];
+    var seeking = $('#searchInput').val();
+    var regex = new RegExp('(^' + seeking + ')+(.*)+', 'gi')
+    $($seekTable).each(function (index, item) {
+        for (var key in item) {
+            $value1 = item[key];
+            if (regex.test($value1) === true) {
+                addLine(item);
+            }
+            if (key === 'name') {
+                for (var subKey in item.name) {
+                    $value2 = item.name[subKey];
+                    if (regex.test($value2) === true) {
+                        addLine(item);
+                    }
+                }
+            }
+        }
+    })
+}
+
+//tri
+var $sens = false;
+function sorting(sortBy){
+    if($lastSortBy !== sortBy){$sens = false}
+    $lastSortBy = sortBy;
+    $('tbody').html('');
+    console.log(sortBy)
+    var intRegex = /^\d+$/;
+    var $sortTable;
+    var $sorting = $trItem;
+    $sortTable = $sorting.sort(function(a, b){
+        if(sortBy === 'first' || sortBy === 'last'){a=a.name; b=b.name}
+        if($sens === false){
+            if(intRegex.test(a[sortBy])){
+                return a[sortBy] - b[sortBy];
+            }else{
+                return (a[sortBy]).localeCompare(b[sortBy]);
+            }
+        }else{
+            if(intRegex.test(a[sortBy])){
+                return b[sortBy] - a[sortBy];
+            }else{
+                return (b[sortBy]).localeCompare(a[sortBy]);
+            }
+        }
+    })
+    $trItem = [];
+    $($sortTable).each(function(index, item){
+        addLine(item)
+    });
+    if($sens === true){$sens = false}else{$sens = true};
+}
