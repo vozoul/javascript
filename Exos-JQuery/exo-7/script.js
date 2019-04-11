@@ -61,7 +61,7 @@ $(document).ready(function () {
 //lastId
 function lastId(){
     base = parseInt($trItem.slice(-1)[0].id);
-    added = (!$($addedItems).empty()) ? parseInt($addedItems.slice(-1)[0].id) : 0 ;
+    added = ($addedItems !== []) ? parseInt($addedItems.slice(-1)[0].id) : 0 ;
     return base + added;
 }
 
@@ -81,6 +81,7 @@ function addLine(item) {
     $tableItem.push(item);
     if ($tableItem.indexOf(item) != -1) {
         $trItem.push(item);
+        $addedItems.push(item);
         $('tbody').append($tr);
     }
 }
