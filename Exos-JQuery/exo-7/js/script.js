@@ -2,9 +2,10 @@ console.log("exercice 7");
 
 var $trItem = [];
 var $addedItems = [];
-var $totalDatas = $($addedItems).empty() ? $trItem : $trItem + $addedItems;
-var $lastSortBy = '';
-var $source = $($trItem).empty() ? data : $totalDatas;
+var $deleted = [];
+var $totalData = data.concat($addedItems)
+var $source = $totalData
+var $id = lastId();
 
 $(document).ready(function () {
 
@@ -17,26 +18,25 @@ $(document).ready(function () {
         $('.pagination').show();
         $('#showForm').removeClass('active');
         $('#register').hide();
-            $(this).addClass('active');
+        $(this).addClass('active');
         $('tbody').html('');
         $($source).each(function (index, item) {
             addLine(item);
         });
-        console.log(lastId())
         pagin();
     });
 
     //affichage formulaire
-    $('#showForm').on('click',function(){
+    $('#showForm').on('click', function () {
         $('.table').hide()
         $('.pagination').hide()
         $('#showDb').removeClass('active');
         $('#register').show()
-            $(this).addClass('active');
+        $(this).addClass('active');
     });
 
     //lancement du tri
-    $('tr a.sort').on('click', function(){
+    $('tr a.sort').on('click', function () {
         var $sortBy = $(this).data('sort');
         sorting($sortBy);
         pagin();
@@ -56,97 +56,115 @@ $(document).ready(function () {
         pagin();
     });
 
+    //Ajout d'un enregistrement
+    $('#addEntry').on('click', function () {
+        register();
+    });
 });
 
 //lastId
-function lastId(){
-    base = parseInt($trItem.slice(-1)[0].id);
-    added = ($addedItems !== []) ? parseInt($addedItems.slice(-1)[0].id) : 0 ;
-    return base + added;
+function lastId() {
+    return parseInt($source.slice(-1)[0].id);
 }
 
 //fonction d'ajout de ligne
 function addLine(item) {
-    var $tableItem = [];
-    var $tr = $('<tr>');
-    for (var key in item) {
-        if (key === 'name') {
-            for (var subKey in item.name) {
-                $tr.append('<td class="'+ subKey +'">' + item.name[subKey] + '</td>');
+    if($deleted.indexOf(item.id) == -1){
+        var $tr = $('<tr>');
+        $del = $tr.append('<td class="del"><a href="#" class="text-danger"  data-del="'+item.id+'"><i class="fas fa-times"></i></a></td>')
+        //suppression d'une ligne
+        $del.on('click', function(){
+            $deleted.push(item.id);
+            $(this).remove();
+        });
+        for (var key in item) {
+            if (key === 'name') {
+                for (var subKey in item.name) {
+                    $tr.append('<td class="' + subKey + '">' + item.name[subKey] + '</td>');
+                }
+            } else {
+                $tr.append('<td class="' + key + '">' + item[key] + '</td>');
             }
-        } else {
-            $tr.append('<td class="'+key+'">' + item[key] + '</td>');
         }
     }
-    $tableItem.push(item);
-    if ($tableItem.indexOf(item) != -1) {
-        $trItem.push(item);
-        $addedItems.push(item);
-        $('tbody').append($tr);
-    }
+    $('tbody').append($tr);
 }
 
 //Fonction de recherche
 function seek() {
     $('tbody').html('');
-    var $seekTable = $trItem;
-    $trItem =[];
+    var $seekTable = $source;
     var seeking = $('#searchInput').val();
     var regex = new RegExp('(^' + seeking + ')+(.*)+', 'gi')
+    var $resultTable = [];
     $($seekTable).each(function (index, item) {
         for (var key in item) {
             $value1 = item[key];
             if (regex.test($value1) === true) {
-                addLine(item);
+                $resultTable.push(item)
             }
             if (key === 'name') {
                 for (var subKey in item.name) {
                     $value2 = item.name[subKey];
                     if (regex.test($value2) === true) {
-                        addLine(item);
+                        $resultTable.push(item)
                     }
                 }
             }
+        }
+        if($resultTable.indexOf(item) != -1){
+            addLine(item);
         }
     })
 }
 
 //tri
 var $sens = false;
-function sorting(sortBy){
-    if($lastSortBy !== sortBy){$sens = false}
+
+function sorting(sortBy) {
+    if ($lastSortBy !== sortBy) {
+        $sens = false
+    }
     $lastSortBy = sortBy;
     $('tbody').html('');
-    console.log(sortBy)
     var intRegex = /^\d+$/;
     var $sortTable;
     var $sorting = $trItem;
-    $sortTable = $sorting.sort(function(a, b){
-        if(sortBy === 'first' || sortBy === 'last'){a=a.name; b=b.name}
-        if($sens === false){
-            if(intRegex.test(a[sortBy])){
+    $sortTable = $sorting.sort(function (a, b) {
+        if (sortBy === 'first' || sortBy === 'last') {
+            a = a.name;
+            b = b.name
+        }
+        if ($sens === false) {
+            if (intRegex.test(a[sortBy])) {
                 return a[sortBy] - b[sortBy];
-            }else{
+            } else {
                 return (a[sortBy]).localeCompare(b[sortBy]);
             }
-        }else{
-            if(intRegex.test(a[sortBy])){
+        } else {
+            if (intRegex.test(a[sortBy])) {
                 return b[sortBy] - a[sortBy];
-            }else{
+            } else {
                 return (b[sortBy]).localeCompare(a[sortBy]);
             }
         }
     })
     $trItem = [];
-    $($sortTable).each(function(index, item){
+    $($sortTable).each(function (index, item) {
         addLine(item)
     });
-    if($sens === true){$sens = false}else{$sens = true};
+    if ($sens === true) {
+        $sens = false
+    } else {
+        $sens = true
+    }
+    ;
 }
 
 //pagination
 var $maxRows;
-function pagin(){
+
+function pagin() {
     $('.pagination').html('');
     maxRows = $maxRows;
     var numLine = 0;
@@ -171,6 +189,7 @@ function pagin(){
         var numPage = $(this).data('page');
         var lineIndex = 0;
         $('.pagination li').removeClass('active')
+        $(this).addClass('active')
         $('tbody tr').each(function () {
             lineIndex++;
             if (lineIndex > (maxRows * numPage) || lineIndex < ((maxRows * numPage) - maxRows)) {
@@ -180,4 +199,33 @@ function pagin(){
             }
         })
     })
+}
+
+function register() {
+    $id++;
+    var $inner = $('#register input');
+    var $errors = 0;
+    var $regInput = {
+        "id": ($id),
+        "name": {
+            "first": $('#register input#first').val(),
+            "last": $('#register input#last').val(),
+        },
+        "email": $('#register input#email').val(),
+        "gender": $('#register input#gender').val(),
+        "phone": $('#register input#phone').val(),
+        "country": $('#register input#country').val(),
+    };
+    $inner.each(function (index, item) {
+        if ($(item).val() === '') {
+            $errors++;
+        }
+    })
+    if ($errors > 0) {
+        window.alert('Veuillez remplir tous les champs.')
+    } else {
+        $addedItems.push($regInput);
+        $('#register input').val('');
+        $source = data.concat($addedItems)
+    }
 }
